@@ -54,9 +54,6 @@ RUN chown -R $user:$user /var/www/html && \
 # Instalar dependências do Composer
 RUN composer install --no-dev --optimize-autoloader
 
-# Gerar chave da aplicação
-RUN php artisan key:generate
-
 # Otimizar Laravel
 RUN php artisan optimize
 RUN php artisan config:cache
