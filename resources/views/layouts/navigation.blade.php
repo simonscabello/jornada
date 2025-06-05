@@ -21,6 +21,11 @@
                         {{ __('Hábitos') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('daily-logs.index')" :active="request()->routeIs('daily-logs.*')">
+                        {{ __('Diários') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->

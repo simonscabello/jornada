@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 class Habit extends Model
 {
@@ -32,40 +34,71 @@ class Habit extends Model
         return $this->hasMany(HabitLog::class);
     }
 
-    public function getWeeklyFrequencyAttribute()
+    public function getWeeklyFrequencyAttribute(): int
     {
         return $this->logs()
-            ->where('completed_at', '>=', now()->subDays(7))
+            ->where('completed_at', '>=', now()->subDays(7)->startOfDay())
             ->count();
     }
 
-    public function getCurrentStreakAttribute()
+    public function getCurrentStreakAttribute(): int
     {
         $streak = 0;
-        $currentDate = now()->startOfDay();
+        $date = now()->startOfDay();
 
-        while ($this->logs()->whereDate('completed_at', $currentDate)->exists()) {
+        while ($this->wasCompletedOn($date)) {
             $streak++;
-            $currentDate->subDay();
+            $date->subDay();
         }
 
         return $streak;
     }
 
-    public function getMonthlyProgressAttribute()
+    public function getMonthlyProgressAttribute(): array
     {
-        $startOfMonth = now()->startOfMonth();
-        $endOfMonth = now()->endOfMonth();
+        $date = now();
+        $start = $date->copy()->startOfMonth()->startOfDay();
+        $end = $date->copy()->endOfMonth()->startOfDay();
 
-        $totalDays = $startOfMonth->diffInDays($endOfMonth) + 1;
         $completedDays = $this->logs()
-            ->whereBetween('completed_at', [$startOfMonth, $endOfMonth])
+            ->whereBetween('completed_at', [$start, $end])
             ->count();
+
+        $totalDays = $start->diffInDays($end) + 1;
 
         return [
             'total_days' => $totalDays,
             'completed_days' => $completedDays,
-            'percentage' => ($completedDays / $totalDays) * 100
+            'percentage' => round(($completedDays / $totalDays) * 100, 2),
         ];
+    }
+
+    public function getMonthlyCalendarAttribute(): Collection
+    {
+        $date = now();
+        $start = $date->copy()->startOfMonth();
+        $end = $date->copy()->endOfMonth();
+
+        $loggedDates = $this->logs()
+            ->whereBetween('completed_at', [$start, $end])
+            ->pluck('completed_at')
+            ->map(fn ($d) => $d->toDateString())
+            ->flip();
+
+        return collect(range(0, $start->diffInDays($end)))
+            ->map(fn ($i) => $start->copy()->addDays($i))
+            ->map(fn ($day) => [
+                'date' => $day->toDateString(),
+                'day' => $day->day,
+                'is_completed' => $loggedDates->has($day->toDateString()),
+                'is_today' => $day->isToday(),
+            ]);
+    }
+
+    public function wasCompletedOn(Carbon $date): bool
+    {
+        return $this->logs()
+            ->whereDate('completed_at', $date->toDateString())
+            ->exists();
     }
 }

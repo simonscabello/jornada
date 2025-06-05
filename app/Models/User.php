@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Models\Habit;
+use App\Models\DailyLog;
 
 class User extends Authenticatable
 {
@@ -50,5 +52,10 @@ class User extends Authenticatable
     public function habits(): HasMany
     {
         return $this->hasMany(Habit::class);
+    }
+
+    public function dailyLogs(): HasMany
+    {
+        return $this->hasMany(DailyLog::class);
     }
 }
