@@ -59,7 +59,13 @@
         "test": [
             "@php artisan config:clear --ansi",
             "@php artisan test"
-        ]
+        ],
+        "start": {
+            "start": "php -S 0.0.0.0:8000 -t public",
+            "post-install-cmd": [
+              "@php artisan migrate --force"
+            ]
+        }
     },
     "extra": {
         "laravel": {
