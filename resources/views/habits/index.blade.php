@@ -23,6 +23,10 @@
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold text-indigo-700">Olá! 👋</h3>
+                        <p class="text-gray-600 mt-1">Aqui estão seus hábitos de hoje. Lembre-se: cada pequeno passo conta na sua jornada!</p>
+                    </div>
                     @if($habits->isEmpty())
                         <div class="text-center py-8">
                             <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -40,20 +44,34 @@
                             </div>
                         </div>
                     @else
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             @foreach($habits as $habit)
-                                <div class="bg-white border rounded-lg shadow-sm p-6 transition-all duration-200 hover:shadow-md {{ $completedToday[$habit->id] ? 'bg-green-50 border-green-200' : '' }}">
-                                    <h3 class="text-lg font-semibold mb-2 text-indigo-800">{{ $habit->name }}</h3>
+                                <div class="relative bg-gradient-to-br from-indigo-50 via-white to-green-50 border rounded-xl shadow-md p-6 transition-all duration-300 hover:shadow-xl hover:scale-105">
+                                    <div class="flex items-center mb-2">
+                                        <svg class="w-6 h-6 text-indigo-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m6.364 1.636l-1.414 1.414M22 12h-2m-1.636 6.364l-1.414-1.414M12 22v-2m-6.364-1.636l1.414-1.414M2 12h2m1.636-6.364l1.414 1.414" />
+                                        </svg>
+                                        <h3 class="text-lg font-semibold text-indigo-800">{{ $habit->name }}</h3>
+                                    </div>
                                     @if($habit->description)
                                         <p class="text-gray-600 mb-4">{{ $habit->description }}</p>
                                     @endif
-                                    <div class="flex justify-between items-center">
-                                        <a href="{{ route('habits.show', $habit) }}" class="inline-flex items-center px-4 py-2 bg-indigo-50 border border-transparent rounded-md font-semibold text-xs text-indigo-700 uppercase tracking-widest hover:bg-indigo-100">
+                                    <div class="flex justify-between items-center mt-4">
+                                        <a href="{{ route('habits.show', $habit) }}" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-indigo-200 to-indigo-400 border border-transparent rounded-md font-semibold text-xs text-indigo-900 uppercase tracking-widest hover:from-indigo-300 hover:to-indigo-500 transition">
                                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                             </svg>
                                             Acompanhar
                                         </a>
+                                        @if($completedToday[$habit->id])
+                                            <span class="inline-flex items-center px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full ml-2 animate-pulse">
+                                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                </svg>
+                                                Concluído!
+                                            </span>
+                                        @endif
                                     </div>
                                 </div>
                             @endforeach

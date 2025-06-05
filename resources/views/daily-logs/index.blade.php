@@ -23,6 +23,10 @@
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold text-indigo-700">Como você está hoje? 🌱</h3>
+                        <p class="text-gray-600 mt-1">Registre seus sentimentos, conquistas e aprendizados. Seu diário é um espaço só seu para crescer e se conhecer melhor!</p>
+                    </div>
                     @if($dailyLogs->isEmpty())
                         <div class="text-center py-8">
                             <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -40,29 +44,31 @@
                             </div>
                         </div>
                     @else
-                        <div class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             @foreach($dailyLogs as $dailyLog)
-                                <div class="bg-white border rounded-lg shadow-sm p-6 transition-all duration-200 hover:shadow-md">
-                                    <div class="flex justify-between items-start mb-4">
-                                        <div>
-                                            <h3 class="text-lg font-semibold text-indigo-800">{{ $dailyLog->created_at->format('d/m/Y') }}</h3>
-                                            @if($dailyLog->mood)
-                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 mt-2">
-                                                    {{ $dailyLog->mood }}
-                                                </span>
-                                            @endif
-                                        </div>
-                                        <div class="flex space-x-2">
-                                            <a href="{{ route('daily-logs.show', $dailyLog) }}" class="inline-flex items-center px-4 py-2 bg-indigo-50 border border-transparent rounded-md font-semibold text-xs text-indigo-700 uppercase tracking-widest hover:bg-indigo-100">
-                                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                </svg>
-                                                Ver
-                                            </a>
-                                        </div>
+                                <div class="relative bg-gradient-to-br from-indigo-50 via-white to-green-50 border rounded-xl shadow-md p-6 transition-all duration-300 hover:shadow-xl hover:scale-105">
+                                    <div class="flex items-center mb-2">
+                                        <svg class="w-6 h-6 text-indigo-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                        </svg>
+                                        <h3 class="text-lg font-semibold text-indigo-800">{{ $dailyLog->created_at->format('d/m/Y') }}</h3>
+                                        @if($dailyLog->mood)
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800 ml-2">
+                                                {{ $dailyLog->mood }}
+                                            </span>
+                                        @endif
                                     </div>
-                                    <p class="text-gray-600 line-clamp-3">{{ $dailyLog->content }}</p>
+                                    <p class="text-gray-600 line-clamp-3 mb-4">{{ $dailyLog->content }}</p>
+                                    <div class="flex justify-end items-center mt-2">
+                                        <a href="{{ route('daily-logs.show', $dailyLog) }}" class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-indigo-200 to-indigo-400 border border-transparent rounded-md font-semibold text-xs text-indigo-900 uppercase tracking-widest hover:from-indigo-300 hover:to-indigo-500 transition">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                            Ver
+                                        </a>
+                                    </div>
                                 </div>
                             @endforeach
                         </div>

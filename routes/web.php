@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HabitController;
 use App\Http\Controllers\DailyLogController;
+use App\Http\Controllers\GoalController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,6 +25,9 @@ Route::middleware('auth')->group(function () {
     Route::post('habits/{habit}/complete', [HabitController::class, 'complete'])
         ->name('habits.complete');
     Route::resource('daily-logs', DailyLogController::class);
+    Route::resource('goals', GoalController::class);
+    Route::post('goals/{goal}/complete', [GoalController::class, 'complete'])
+        ->name('goals.complete');
 });
 
 require __DIR__.'/auth.php';
