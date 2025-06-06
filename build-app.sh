@@ -2,6 +2,8 @@
 
 set -e
 
+npm ci
+
 npm run build
 
 php artisan optimize:clear
