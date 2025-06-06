@@ -7,14 +7,15 @@ use App\Http\Controllers\DailyLogController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CollectionItemController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, '__invoke'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
