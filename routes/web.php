@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
         ->name('collection-items.edit');
     Route::post('collections/{collection}/items/reorder', [CollectionItemController::class, 'reorder'])
         ->name('collection-items.reorder');
+
 });
 
 require __DIR__.'/auth.php';
