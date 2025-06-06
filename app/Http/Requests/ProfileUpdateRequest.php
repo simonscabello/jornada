@@ -25,6 +25,11 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
+            'birth_date' => ['nullable', 'date'],
+            'gender' => ['nullable', 'string', 'in:masculino,feminino,outro'],
+            'phone' => ['nullable', 'string', 'max:20'],
+            'bio' => ['nullable', 'string', 'max:1000'],
+            'goals_visibility' => ['boolean'],
         ];
     }
 }

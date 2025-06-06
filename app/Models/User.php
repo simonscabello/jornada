@@ -26,6 +26,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'birth_date',
+        'gender',
+        'phone',
+        'bio',
+        'goals_visibility',
     ];
 
     /**
@@ -46,6 +51,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'birth_date' => 'date',
+        'goals_visibility' => 'boolean',
     ];
 
     public function habits(): HasMany
