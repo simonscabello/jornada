@@ -36,8 +36,11 @@ class Habit extends Model
 
     public function getWeeklyFrequencyAttribute(): int
     {
+        // Count completions for the last seven days including today. Using
+        // subDays(6) avoids counting an extra day when we subtract a full
+        // seven days from the current date.
         return $this->logs()
-            ->where('completed_at', '>=', now()->subDays(7)->startOfDay())
+            ->where('completed_at', '>=', now()->subDays(6)->startOfDay())
             ->count();
     }
 
