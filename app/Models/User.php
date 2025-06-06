@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Habit;
 use App\Models\DailyLog;
 use App\Models\Goal;
+use App\Models\Collection;
 
 class User extends Authenticatable
 {
@@ -42,13 +43,10 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
 
     public function habits(): HasMany
     {
@@ -63,5 +61,10 @@ class User extends Authenticatable
     public function goals(): HasMany
     {
         return $this->hasMany(Goal::class);
+    }
+
+    public function collections()
+    {
+        return $this->hasMany(Collection::class);
     }
 }

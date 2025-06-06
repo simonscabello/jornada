@@ -43,6 +43,7 @@
                     </p>
                 </div>
             </footer>
+            @stack('scripts')
         </div>
     </body>
 </html>
