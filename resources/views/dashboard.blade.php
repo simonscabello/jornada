@@ -1,22 +1,24 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-indigo-800 leading-tight">
-            {{ __('Olá, :name!', ['name' => Auth::user()->name]) }}
-        </h2>
-    </x-slot>
-
     <div class="py-4">
-        <div class="max-w-3xl mx-auto mb-8 px-4">
-            <div class="bg-indigo-50 border-l-4 border-indigo-400 p-6 rounded-xl shadow-sm">
-                <p class="text-lg text-indigo-900 font-semibold mb-2">Que bom te ver por aqui!</p>
-                <p class="text-indigo-800">Lembre-se: cada pequeno passo conta. Mantenha o foco nos seus hábitos, celebre suas conquistas e não se cobre tanto nos dias difíceis. Sua jornada é única e você está evoluindo a cada dia. ✨</p>
-            </div>
-        </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Resumo dos Hábitos -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
+            <div class="bg-white rounded-xl shadow-lg p-6 space-y-8">
+                <!-- Saudação -->
+                <div class="border-b border-gray-200 pb-6">
+                    <h2 class="font-semibold text-xl text-indigo-800 leading-tight">
+                        {{ __('Olá, :name!', ['name' => Auth::user()->name]) }}
+                    </h2>
+                </div>
+
+                <!-- Mensagem de Boas-vindas -->
+                <div class="bg-indigo-50 border-l-4 border-indigo-400 p-6 rounded-xl">
+                    <p class="text-lg text-indigo-900 font-semibold mb-2">Que bom te ver por aqui!</p>
+                    <p class="text-indigo-800">Lembre-se: cada pequeno passo conta. Mantenha o foco nos seus hábitos, celebre suas conquistas e não se cobre tanto nos dias difíceis. Sua jornada é única e você está evoluindo a cada dia. ✨</p>
+                </div>
+
+                <!-- Grid de Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Resumo dos Hábitos -->
+                    <div class="bg-gray-50 rounded-lg p-6">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-lg font-semibold text-indigo-800">Seus Hábitos</h3>
                             <a href="{{ route('habits.index') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700">
@@ -41,11 +43,9 @@
                             </svg>
                         </a>
                     </div>
-                </div>
 
-                <!-- Resumo dos Registros Diários -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
+                    <!-- Resumo dos Registros Diários -->
+                    <div class="bg-gray-50 rounded-lg p-6">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-lg font-semibold text-indigo-800">Seus Registros</h3>
                             @if(!$dailyLog)
@@ -66,7 +66,7 @@
                                 </svg>
                             </a>
                         @else
-                            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+                            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
                                 <div class="flex">
                                     <div class="flex-shrink-0">
                                         <svg class="h-5 w-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,11 +82,9 @@
                             </div>
                         @endif
                     </div>
-                </div>
 
-                <!-- Resumo das Metas -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
+                    <!-- Resumo das Metas -->
+                    <div class="bg-gray-50 rounded-lg p-6">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-lg font-semibold text-indigo-800">Suas Metas</h3>
                             <a href="{{ route('goals.index') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700">
@@ -123,11 +121,9 @@
                             </svg>
                         </a>
                     </div>
-                </div>
 
-                <!-- Resumo das Coleções -->
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
+                    <!-- Resumo das Coleções -->
+                    <div class="bg-gray-50 rounded-lg p-6">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-lg font-semibold text-indigo-800">Suas Coleções</h3>
                             <a href="{{ route('collections.index') }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700">
@@ -153,14 +149,9 @@
                         </a>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6">
+                <!-- Check-in de Autocuidado -->
+                <div class="bg-gray-50 rounded-lg p-6">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-lg font-semibold text-indigo-800">Check-in de Autocuidado</h3>
                         @if(!$todayCheckin)

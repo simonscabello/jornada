@@ -1,13 +1,14 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-indigo-800 leading-tight">
-            {{ __('Meu Perfil') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
+    <div class="py-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            <div class="bg-white rounded-xl shadow-lg p-6 space-y-8">
+                <!-- Header -->
+                <div class="border-b border-gray-200 pb-6">
+                    <h2 class="font-semibold text-xl text-indigo-800 leading-tight">
+                        {{ __('Meu Perfil') }}
+                    </h2>
+                </div>
+
                 <div class="max-w-xl">
                     <section>
                         <header>
@@ -116,13 +117,13 @@
                 </div>
             </div>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            <div class="bg-white rounded-xl shadow-lg p-6 space-y-8">
                 <div class="max-w-xl">
                     @include('profile.partials.update-password-form')
                 </div>
             </div>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            <div class="bg-white rounded-xl shadow-lg p-6 space-y-8">
                 <div class="max-w-xl">
                     @include('profile.partials.delete-user-form')
                 </div>
