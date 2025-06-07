@@ -9,23 +9,23 @@
                     {{ $collection->title }}
                 </h2>
             </div>
-            <div class="flex items-center space-x-4">
+            <div class="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 items-center">
                 <a href="{{ route('collections.index') }}" class="w-full md:w-auto inline-flex items-center px-4 py-2 bg-indigo-50 border border-transparent rounded-md font-semibold text-xs text-indigo-700 uppercase tracking-widest hover:bg-indigo-100">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
                     Voltar
                 </a>
-                <a href="{{ route('collections.edit', $collection) }}" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                <a href="{{ route('collections.edit', $collection) }}" class="w-full md:w-auto inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                     </svg>
                     Ajustar
                 </a>
-                <form action="{{ route('collections.destroy', $collection) }}" method="POST" class="inline">
+                <form action="{{ route('collections.destroy', $collection) }}" method="POST" class="w-full md:w-auto inline">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150" onclick="return confirm('Tem certeza que deseja excluir esta coleção?')">
+                    <button type="submit" class="w-full md:w-auto inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-700 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150" onclick="return confirm('Tem certeza que deseja excluir esta coleção?')">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
@@ -54,7 +54,7 @@
                     <!-- Formulário para adicionar novo item -->
                     <form method="POST" action="{{ route('collection-items.store', $collection) }}" class="mb-8 bg-gradient-to-br from-indigo-50 via-white to-green-50 p-6 rounded-xl">
                         @csrf
-                        <div class="flex gap-4">
+                        <div class="flex flex-col md:flex-row gap-4">
                             <div class="flex-1">
                                 <x-input-label for="content" :value="__('Novo Item')" />
                                 <x-text-input id="content" name="content" type="text" class="mt-1 block w-full" :value="old('content')" required placeholder="Digite o conteúdo do item que deseja adicionar..." />
@@ -66,7 +66,7 @@
                                 <x-input-error class="mt-2" :messages="$errors->get('notes')" />
                             </div>
                             <div class="flex items-end">
-                                <x-primary-button class="bg-indigo-600 hover:bg-indigo-700">
+                                <x-primary-button class="w-full md:w-auto bg-indigo-600 hover:bg-indigo-700">
                                     {{ __('Adicionar') }}
                                 </x-primary-button>
                             </div>
@@ -116,17 +116,17 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="flex items-center space-x-2">
-                                            <a href="{{ route('collection-items.edit', [$collection, $item]) }}" class="inline-flex items-center px-3 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700">
+                                        <div class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-2">
+                                            <a href="{{ route('collection-items.edit', [$collection, $item]) }}" class="w-full md:w-auto inline-flex items-center px-3 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700">
                                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                                                 </svg>
                                                 Ajustar
                                             </a>
-                                            <form action="{{ route('collection-items.destroy', [$collection, $item]) }}" method="POST" class="inline">
+                                            <form action="{{ route('collection-items.destroy', [$collection, $item]) }}" method="POST" class="w-full md:w-auto inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="inline-flex items-center px-3 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700" onclick="return confirm('Tem certeza que deseja excluir este item?')">
+                                                <button type="submit" class="w-full md:w-auto inline-flex items-center px-3 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700" onclick="return confirm('Tem certeza que deseja excluir este item?')">
                                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                                     </svg>

@@ -9,8 +9,8 @@
                     Editar Item
                 </h2>
             </div>
-            <div class="flex items-center space-x-4">
-                <a href="{{ route('collections.show', $collection) }}" class="inline-flex items-center px-4 py-2 bg-indigo-50 border border-transparent rounded-md font-semibold text-xs text-indigo-700 uppercase tracking-widest hover:bg-indigo-100">
+            <div class="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 items-center">
+                <a href="{{ route('collections.show', $collection) }}" class="w-full md:w-auto inline-flex items-center px-4 py-2 bg-indigo-50 border border-transparent rounded-md font-semibold text-xs text-indigo-700 uppercase tracking-widest hover:bg-indigo-100">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                     </svg>
@@ -64,12 +64,12 @@
                             </div>
                         </div>
 
-                        <div class="flex items-center space-x-4">
-                            <x-primary-button class="bg-indigo-600 hover:bg-indigo-700">
+                        <div class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
+                            <x-primary-button class="w-full md:w-auto bg-indigo-600 hover:bg-indigo-700">
                                 Salvar Alterações
                             </x-primary-button>
                             <a href="{{ route('collections.show', $collection) }}"
-                                class="inline-flex items-center px-4 py-2 bg-gray-50 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-100">
+                                class="w-full md:w-auto inline-flex items-center px-4 py-2 bg-gray-50 border border-transparent rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-100">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                                 </svg>
