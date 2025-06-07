@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-indigo-800 leading-tight">
-            {{ __('Bem-vindo(a) de volta!') }}
+            {{ __('Olá, :name!', ['name' => Auth::user()->name]) }}
         </h2>
     </x-slot>
 
