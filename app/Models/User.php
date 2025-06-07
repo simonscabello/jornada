@@ -11,6 +11,8 @@ use App\Models\Habit;
 use App\Models\DailyLog;
 use App\Models\Goal;
 use App\Models\Collection;
+use App\Models\SelfCareQuestion;
+use App\Models\SelfCareCheckin;
 
 class User extends Authenticatable
 {
@@ -73,5 +75,15 @@ class User extends Authenticatable
     public function collections()
     {
         return $this->hasMany(Collection::class);
+    }
+
+    public function questions()
+    {
+        return $this->hasMany(SelfCareQuestion::class);
+    }
+
+    public function checkins()
+    {
+        return $this->hasMany(SelfCareCheckin::class);
     }
 }

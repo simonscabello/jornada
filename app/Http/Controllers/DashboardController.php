@@ -56,11 +56,16 @@ class DashboardController extends Controller
                 ->sum('items_count')
         ];
 
+        $todayCheckin = $user->checkins()
+            ->where('date', $today)
+            ->first();
+
         return view('dashboard', compact(
             'habits',
             'dailyLog',
             'goals',
-            'collections'
+            'collections',
+            'todayCheckin'
         ));
     }
 }

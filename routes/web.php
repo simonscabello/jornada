@@ -8,6 +8,8 @@ use App\Http\Controllers\GoalController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CollectionItemController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SelfCareQuestionController;
+use App\Http\Controllers\SelfCareCheckinController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -50,6 +52,11 @@ Route::middleware('auth')->group(function () {
     Route::post('collections/{collection}/items/reorder', [CollectionItemController::class, 'reorder'])
         ->name('collection-items.reorder');
 
+    // Rotas de Autocuidado
+    Route::resource('self-care/questions', SelfCareQuestionController::class)
+        ->names('self-care.questions');
+    Route::resource('self-care/checkins', SelfCareCheckinController::class)
+        ->names('self-care.checkins');
 });
 
 require __DIR__.'/auth.php';
