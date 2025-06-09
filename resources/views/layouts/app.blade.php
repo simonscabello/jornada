@@ -22,12 +22,12 @@
             @auth
                 @include('layouts.sidebar')
             @endauth
-            <div class="flex-1 flex flex-col min-h-screen" @auth class="sm:ml-64" @endauth>
+            <div class="flex-1 flex flex-col min-h-screen transition-all duration-300 {{ auth()->check() ? 'ml-0 sm:ml-64' : '' }}">
                 @include('layouts.navigation')
 
                 <!-- Page Content -->
                 <main class="flex-1 py-8">
-                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="max-w-7xl sm:px-6 lg:px-8">
                         @isset($header)
                             <div class="bg-white shadow-sm rounded-t-lg mb-6">
                                 <div class="px-4 py-4 sm:px-6 lg:px-8">

@@ -7,9 +7,15 @@
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             <div class="flex items-center space-x-2">
-                                <div class="h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center">
-                                    <span class="text-indigo-600 font-semibold">{{ substr(Auth::user()->name, 0, 1) }}</span>
-                                </div>
+                                @if (Auth::user()->profilePhoto)
+                                    <img src="{{ Auth::user()->profilePhoto->url }}"
+                                         alt="{{ Auth::user()->name }}"
+                                         class="h-8 w-8 rounded-full object-cover">
+                                @else
+                                    <div class="h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center">
+                                        <span class="text-indigo-600 font-semibold">{{ substr(Auth::user()->name, 0, 1) }}</span>
+                                    </div>
+                                @endif
                                 <div>{{ Auth::user()->name }}</div>
                             </div>
 

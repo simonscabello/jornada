@@ -30,6 +30,7 @@ class ProfileUpdateRequest extends FormRequest
             'phone' => ['nullable', 'string', 'max:20'],
             'bio' => ['nullable', 'string', 'max:1000'],
             'goals_visibility' => ['boolean'],
+            'profile_photo' => ['nullable', 'image', 'max:2048'],
         ];
     }
 }

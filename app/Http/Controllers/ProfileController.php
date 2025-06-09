@@ -8,9 +8,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+use App\Models\File;
+use App\Services\FileUploaderService;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
+    public function __construct(
+        private readonly FileUploaderService $fileUploader
+    ) {}
+
     /**
      * Display the user's profile form.
      */
@@ -28,6 +37,25 @@ class ProfileController extends Controller
     {
         $data = $request->validated();
         $data['goals_visibility'] = $request->boolean('goals_visibility');
+
+        if ($request->hasFile('profile_photo')) {
+            $file = $this->fileUploader->uploadImage($request->file('profile_photo'), [
+                'max_width' => 400,
+                'quality' => 80,
+                'fileable_type' => User::class,
+                'fileable_id' => $request->user()->id
+            ]);
+
+            if ($request->user()->profile_photo_id) {
+                $oldFile = File::find($request->user()->profile_photo_id);
+                if ($oldFile) {
+                    Storage::disk('s3')->delete($oldFile->path);
+                    $oldFile->delete();
+                }
+            }
+
+            $data['profile_photo_id'] = $file->id;
+        }
 
         $request->user()->fill($data);
 

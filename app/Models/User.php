@@ -13,6 +13,7 @@ use App\Models\Goal;
 use App\Models\Collection;
 use App\Models\SelfCareQuestion;
 use App\Models\SelfCareCheckin;
+use App\Models\File;
 
 class User extends Authenticatable
 {
@@ -33,6 +34,7 @@ class User extends Authenticatable
         'phone',
         'bio',
         'goals_visibility',
+        'profile_photo_id',
     ];
 
     /**
@@ -85,5 +87,10 @@ class User extends Authenticatable
     public function checkins()
     {
         return $this->hasMany(SelfCareCheckin::class);
+    }
+
+    public function profilePhoto()
+    {
+        return $this->belongsTo(File::class, 'profile_photo_id');
     }
 }

@@ -98,6 +98,20 @@
                 </x-slot>
                 {{ __('Autocuidado') }}
             </x-sidebar-link>
+
+            <hr class="border-t border-gray-200 my-3">
+
+            <x-sidebar-link
+                href="{{ route('profile.edit') }}"
+                :active="request()->routeIs('profile.edit')"
+            >
+                <x-slot name="icon">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 15c2.485 0 4.779.758 6.879 2.053M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </x-slot>
+                {{ __('Perfil') }}
+            </x-sidebar-link>
         </nav>
     </div>
 
@@ -198,6 +212,20 @@
                     </svg>
                 </x-slot>
                 {{ __('Autocuidado') }}
+            </x-sidebar-link>
+
+            <hr class="border-t border-gray-200 my-3">
+
+            <x-sidebar-link
+                href="{{ route('profile.edit') }}"
+                :active="request()->routeIs('profile.edit')"
+            >
+                <x-slot name="icon">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 15c2.485 0 4.779.758 6.879 2.053M15 10a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </x-slot>
+                {{ __('Perfil') }}
             </x-sidebar-link>
         </nav>
     </div>
