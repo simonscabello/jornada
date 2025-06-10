@@ -13,6 +13,7 @@ use App\Models\Collection;
 use App\Models\SelfCareQuestion;
 use App\Models\SelfCareCheckin;
 use App\Models\File;
+use App\Models\LifeEvent;
 
 class User extends Authenticatable
 {
@@ -91,5 +92,10 @@ class User extends Authenticatable
     public function profilePhoto()
     {
         return $this->belongsTo(File::class, 'profile_photo_id');
+    }
+
+    public function lifeEvents(): HasMany
+    {
+        return $this->hasMany(LifeEvent::class);
     }
 }

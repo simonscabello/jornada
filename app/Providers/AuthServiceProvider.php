@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\DailyLog;
 use App\Models\Habit;
 use App\Models\HabitLog;
+use App\Models\LifeEvent;
 use App\Policies\DailyLogPolicy;
 use App\Policies\HabitPolicy;
 use App\Policies\HabitLogPolicy;
+use App\Policies\LifeEventPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,8 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         DailyLog::class => DailyLogPolicy::class,
         Habit::class => HabitPolicy::class,
+        HabitLog::class => HabitLogPolicy::class,
+        LifeEvent::class => LifeEventPolicy::class,
     ];
 
     /**

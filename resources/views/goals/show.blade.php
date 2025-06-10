@@ -45,52 +45,60 @@
                     <!-- Informações da Meta -->
                     <div class="space-y-4">
                         <div>
-                            <h3 class="text-lg font-semibold mb-2 text-indigo-800">Descrição</h3>
-                            <p class="text-gray-600">{{ $goal->description ?: 'Você ainda não descreveu esta meta.' }}</p>
+                            <h3 class="text-lg font-semibold mb-2 text-indigo-800">Detalhes da Meta</h3>
+                            <div class="bg-indigo-50 p-4 rounded-lg space-y-4">
+                                <div>
+                                    <p class="text-sm text-indigo-600">Data Alvo</p>
+                                    <p class="text-lg font-semibold text-indigo-800">{{ $goal->target_date->format('d/m/Y') }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-indigo-600">Status</p>
+                                    <p class="text-lg font-semibold {{ $goal->is_completed ? 'text-green-600' : 'text-indigo-800' }}">
+                                        {{ $goal->is_completed ? 'Concluída' : 'Em Andamento' }}
+                                    </p>
+                                </div>
+                                @if($goal->completed_at)
+                                    <div>
+                                        <p class="text-sm text-indigo-600">Concluída em</p>
+                                        <p class="text-lg font-semibold text-green-600">{{ $goal->completed_at->format('d/m/Y') }}</p>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
-                        <div>
-                            <h3 class="text-lg font-semibold mb-2 text-indigo-800">Data Alvo</h3>
-                            <p class="text-gray-600">{{ $goal->target_date->format('d/m/Y') }}</p>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold mb-2 text-indigo-800">Status</h3>
-                            @if($goal->is_completed)
-                                <span class="inline-flex items-center px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full animate-pulse">
-                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                        @if($goal->description)
+                            <div>
+                                <h3 class="text-lg font-semibold mb-2 text-indigo-800">Sobre esta meta</h3>
+                                <div class="bg-indigo-50 p-4 rounded-lg">
+                                    <p class="text-gray-600 whitespace-pre-line">{{ $goal->description }}</p>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+
+                    <!-- Ações -->
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4 text-indigo-800">Ações</h3>
+                        <div class="bg-indigo-50 p-4 rounded-lg">
+                            @if(!$goal->is_completed)
+                                <form action="{{ route('goals.complete', $goal) }}" method="POST" class="space-y-4">
+                                    @csrf
+                                    <button type="submit" class="w-full inline-flex items-center justify-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700">
+                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        Marcar como Concluída
+                                    </button>
+                                </form>
+                            @else
+                                <div class="text-center py-4">
+                                    <svg class="mx-auto h-12 w-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
-                                    Concluída em {{ $goal->completed_at ? $goal->completed_at->format('d/m/Y') : '' }}
-                                </span>
-                            @elseif($goal->target_date->isPast())
-                                <span class="inline-flex items-center px-2 py-1 bg-red-100 text-red-700 text-xs font-bold rounded-full">
-                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    Vencida
-                                </span>
-                            @else
-                                <span class="inline-flex items-center px-2 py-1 bg-indigo-100 text-indigo-700 text-xs font-bold rounded-full">
-                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    Em andamento
-                                </span>
+                                    <p class="mt-2 text-sm text-green-600">Parabéns! Esta meta foi concluída com sucesso! 🎉</p>
+                                </div>
                             @endif
                         </div>
-                    </div>
-                    <!-- Espaço para evolução futura: progresso, gráficos, etc. -->
-                    <div class="flex flex-col justify-center items-center">
-                        @if(!$goal->is_completed)
-                            <form action="{{ route('goals.complete', $goal) }}" method="POST">
-                                @csrf
-                                <x-primary-button class="bg-indigo-600 hover:bg-indigo-700">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    Marcar como Concluída
-                                </x-primary-button>
-                            </form>
-                        @endif
                     </div>
                 </div>
             </div>

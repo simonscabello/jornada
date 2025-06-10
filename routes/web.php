@@ -10,6 +10,7 @@ use App\Http\Controllers\CollectionItemController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SelfCareQuestionController;
 use App\Http\Controllers\SelfCareCheckinController;
+use App\Http\Controllers\LifeEventController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -57,6 +58,9 @@ Route::middleware('auth')->group(function () {
         ->names('self-care.questions');
     Route::resource('self-care/checkins', SelfCareCheckinController::class)
         ->names('self-care.checkins');
+
+    // Life Events Routes
+    Route::resource('life-events', LifeEventController::class);
 });
 
 require __DIR__.'/auth.php';
