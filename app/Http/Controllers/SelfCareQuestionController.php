@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SelfCareQuestion;
+use App\Http\Requests\SelfCareQuestionStoreRequest;
+use App\Http\Requests\SelfCareQuestionUpdateRequest;
 
 class SelfCareQuestionController extends Controller
 {
@@ -30,11 +32,9 @@ class SelfCareQuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SelfCareQuestionStoreRequest $request)
     {
-        $validated = $request->validate([
-            'question' => 'required|string|max:255',
-        ]);
+        $validated = $request->validated();
 
         $question = auth()->user()->questions()->create($validated);
 
@@ -65,15 +65,9 @@ class SelfCareQuestionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SelfCareQuestion $question)
+    public function update(SelfCareQuestionUpdateRequest $request, SelfCareQuestion $question)
     {
-        if ($question->is_default || $question->user_id !== auth()->id()) {
-            abort(403);
-        }
-
-        $validated = $request->validate([
-            'question' => 'required|string|max:255',
-        ]);
+        $validated = $request->validated();
 
         $question->update($validated);
 

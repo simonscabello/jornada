@@ -9,6 +9,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Collection;
+use App\Http\Requests\HabitStoreRequest;
+use App\Http\Requests\HabitUpdateRequest;
 
 class HabitController extends Controller
 {
@@ -33,12 +35,9 @@ class HabitController extends Controller
         return view('habits.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(HabitStoreRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
-        ]);
+        $validated = $request->validated();
 
         $habit = auth()->user()->habits()->create([
             'name' => $validated['name'],
@@ -69,14 +68,9 @@ class HabitController extends Controller
         return view('habits.edit', compact('habit'));
     }
 
-    public function update(Request $request, Habit $habit): RedirectResponse
+    public function update(HabitUpdateRequest $request, Habit $habit): RedirectResponse
     {
-        $this->authorize('update', $habit);
-
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'description' => ['nullable', 'string'],
-        ]);
+        $validated = $request->validated();
 
         $habit->update([
             'name' => $validated['name'],

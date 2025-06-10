@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Collection;
 use App\Models\CollectionItem;
+use App\Http\Requests\CollectionItemStoreRequest;
+use App\Http\Requests\CollectionItemUpdateRequest;
+use App\Http\Requests\CollectionItemReorderRequest;
 
 class CollectionItemController extends Controller
 {
@@ -16,14 +19,11 @@ class CollectionItemController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Collection $collection)
+    public function store(CollectionItemStoreRequest $request, Collection $collection)
     {
         $this->authorize('update', $collection);
 
-        $validated = $request->validate([
-            'content' => 'required|string|max:255',
-            'notes' => 'nullable|string',
-        ]);
+        $validated = $request->validated();
 
         $position = $collection->items()->max('position') + 1;
 
@@ -48,15 +48,11 @@ class CollectionItemController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Collection $collection, CollectionItem $item)
+    public function update(CollectionItemUpdateRequest $request, Collection $collection, CollectionItem $item)
     {
         $this->authorize('update', $collection);
 
-        $validated = $request->validate([
-            'content' => 'required|string|max:255',
-            'notes' => 'nullable|string',
-            'done' => 'boolean',
-        ]);
+        $validated = $request->validated();
 
         $item->update($validated);
 
@@ -77,15 +73,11 @@ class CollectionItemController extends Controller
             ->with('success', 'Item excluído com sucesso!');
     }
 
-    public function reorder(Request $request, Collection $collection)
+    public function reorder(CollectionItemReorderRequest $request, Collection $collection)
     {
         $this->authorize('update', $collection);
 
-        $validated = $request->validate([
-            'items' => 'required|array',
-            'items.*.id' => 'required|exists:collection_items,id',
-            'items.*.position' => 'required|integer|min:0',
-        ]);
+        $validated = $request->validated();
 
         foreach ($validated['items'] as $item) {
             CollectionItem::where('id', $item['id'])

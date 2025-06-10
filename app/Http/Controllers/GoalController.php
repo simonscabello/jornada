@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Goal;
 use Illuminate\Http\Request;
+use App\Http\Requests\GoalStoreRequest;
+use App\Http\Requests\GoalUpdateRequest;
 
 class GoalController extends Controller
 {
@@ -35,13 +37,9 @@ class GoalController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(GoalStoreRequest $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'target_date' => 'required|date|after_or_equal:today',
-        ]);
+        $validated = $request->validated();
 
         $goal = auth()->user()->goals()->create($validated);
 
@@ -70,15 +68,9 @@ class GoalController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Goal $goal)
+    public function update(GoalUpdateRequest $request, Goal $goal)
     {
-        $this->authorize('update', $goal);
-
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'target_date' => 'required|date',
-        ]);
+        $validated = $request->validated();
 
         $goal->update($validated);
 

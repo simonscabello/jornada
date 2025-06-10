@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\DailyLog;
 use Illuminate\Http\Request;
+use App\Http\Requests\DailyLogStoreRequest;
+use App\Http\Requests\DailyLogUpdateRequest;
 
 class DailyLogController extends Controller
 {
@@ -21,12 +23,9 @@ class DailyLogController extends Controller
         return view('daily-logs.create');
     }
 
-    public function store(Request $request)
+    public function store(DailyLogStoreRequest $request)
     {
-        $validated = $request->validate([
-            'content' => 'required|string',
-            'mood' => 'nullable|string|max:255',
-        ]);
+        $validated = $request->validated();
 
         $log = auth()->user()->dailyLogs()->create($validated);
 
@@ -46,14 +45,9 @@ class DailyLogController extends Controller
         return view('daily-logs.edit', compact('dailyLog'));
     }
 
-    public function update(Request $request, DailyLog $dailyLog)
+    public function update(DailyLogUpdateRequest $request, DailyLog $dailyLog)
     {
-        $this->authorize('update', $dailyLog);
-
-        $validated = $request->validate([
-            'content' => 'required|string',
-            'mood' => 'nullable|string|max:255',
-        ]);
+        $validated = $request->validated();
 
         $dailyLog->update($validated);
 

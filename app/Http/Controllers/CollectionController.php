@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Collection;
+use App\Http\Requests\CollectionStoreRequest;
+use App\Http\Requests\CollectionUpdateRequest;
 
 class CollectionController extends Controller
 {
@@ -35,13 +37,9 @@ class CollectionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CollectionStoreRequest $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'type' => 'nullable|string|max:255',
-            'icon' => 'nullable|string|max:255',
-        ]);
+        $validated = $request->validated();
 
         $collection = auth()->user()->collections()->create($validated);
 
@@ -74,15 +72,9 @@ class CollectionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Collection $collection)
+    public function update(CollectionUpdateRequest $request, Collection $collection)
     {
-        $this->authorize('update', $collection);
-
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'type' => 'nullable|string|max:255',
-            'icon' => 'nullable|string|max:255',
-        ]);
+        $validated = $request->validated();
 
         $collection->update($validated);
 

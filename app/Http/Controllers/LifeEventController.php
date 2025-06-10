@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\LifeEvent;
 use App\Services\FileUploaderService;
-use Illuminate\Http\Request;
+use App\Http\Requests\LifeEventStoreRequest;
+use App\Http\Requests\LifeEventUpdateRequest;
 use Illuminate\Support\Facades\Storage;
 
 class LifeEventController extends Controller
@@ -23,16 +24,9 @@ class LifeEventController extends Controller
         return view('life-events.create');
     }
 
-    public function store(Request $request)
+    public function store(LifeEventStoreRequest $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'event_date' => 'required|date',
-            'location' => 'nullable|string|max:255',
-            'type' => 'required|string|max:50',
-            'images.*' => 'nullable|image|max:5120',
-        ]);
+        $validated = $request->validated();
 
         $event = auth()->user()->lifeEvents()->create($validated);
 
@@ -63,18 +57,9 @@ class LifeEventController extends Controller
         return view('life-events.edit', compact('lifeEvent'));
     }
 
-    public function update(Request $request, LifeEvent $lifeEvent)
+    public function update(LifeEventUpdateRequest $request, LifeEvent $lifeEvent)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'event_date' => 'required|date',
-            'location' => 'nullable|string|max:255',
-            'type' => 'required|string|max:50',
-            'images.*' => 'nullable|image|max:5120',
-            'remove_images' => 'nullable|array',
-            'remove_images.*' => 'exists:files,id',
-        ]);
+        $validated = $request->validated();
 
         $lifeEvent->update($validated);
 

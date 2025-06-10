@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SelfCareCheckin;
 use App\Models\SelfCareQuestion;
+use App\Http\Requests\SelfCareCheckinStoreRequest;
 
 class SelfCareCheckinController extends Controller
 {
@@ -46,12 +47,9 @@ class SelfCareCheckinController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SelfCareCheckinStoreRequest $request)
     {
-        $validated = $request->validate([
-            'answers' => 'required|array',
-            'answers.*' => 'required|boolean',
-        ]);
+        $validated = $request->validated();
 
         $checkin = auth()->user()->checkins()->create([
             'date' => now()->toDateString(),
