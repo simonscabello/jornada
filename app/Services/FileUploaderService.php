@@ -11,6 +11,13 @@ use Intervention\Image\Laravel\Facades\Image;
 
 class FileUploaderService
 {
+    private string $disk;
+
+    public function __construct()
+    {
+        $this->disk = config('filesystems.default');
+    }
+
     public function uploadImage(UploadedFile $uploadedFile, array $options = []): File
     {
         $image = Image::read($uploadedFile);
@@ -27,10 +34,10 @@ class FileUploaderService
         $path = 'images/' . date('Y-m-d') . '-' . $filename;
 
         $encodedImage = $image->toJpeg($quality);
-        Storage::disk('s3')->put($path, $encodedImage);
+        Storage::disk($this->disk)->put($path, $encodedImage);
 
         return File::create([
-            'disk' => 's3',
+            'disk' => $this->disk,
             'path' => $path,
             'filename' => $filename,
             'extension' => $extension,
