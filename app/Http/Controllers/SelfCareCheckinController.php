@@ -103,4 +103,14 @@ class SelfCareCheckinController extends Controller
     {
         //
     }
+
+    public function history()
+    {
+        $checkins = auth()->user()->checkins()
+            ->with('answers.question')
+            ->orderBy('date', 'desc')
+            ->paginate(10);
+
+        return view('self-care.checkins.history', compact('checkins'));
+    }
 }

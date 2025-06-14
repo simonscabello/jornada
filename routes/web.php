@@ -56,6 +56,8 @@ Route::middleware('auth')->group(function () {
     // Rotas de Autocuidado
     Route::resource('self-care/questions', SelfCareQuestionController::class)
         ->names('self-care.questions');
+    Route::get('/self-care/checkins/history', [SelfCareCheckinController::class, 'history'])
+        ->name('self-care.checkins.history');
     Route::resource('self-care/checkins', SelfCareCheckinController::class)
         ->names('self-care.checkins');
 

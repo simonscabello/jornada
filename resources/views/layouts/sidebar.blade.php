@@ -99,17 +99,42 @@
                 {{ __('Linha do Tempo') }}
             </x-sidebar-link>
 
-            <x-sidebar-link
-                href="{{ route('self-care.checkins.create') }}"
-                :active="request()->routeIs('self-care.*')"
-            >
-                <x-slot name="icon">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <!-- Submenu Autocuidado -->
+            <div x-data="{ open: {{ request()->routeIs('self-care.checkins.*') ? 'true' : 'false' }} }">
+                <button @click="open = !open" class="flex items-center w-full px-2 py-2 text-left rounded-lg transition hover:bg-indigo-50 focus:outline-none focus:bg-indigo-100 {{ request()->routeIs('self-care.checkins.*') ? 'bg-indigo-50 text-indigo-700' : 'text-gray-700' }}">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
-                </x-slot>
-                {{ __('Autocuidado') }}
-            </x-sidebar-link>
+                    <span class="flex-1">Autocuidado</span>
+                    <svg :class="{'rotate-90': open}" class="w-4 h-4 ml-auto transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+                <div x-show="open" x-transition class="ml-7 mt-1 space-y-1">
+                    <x-sidebar-link
+                        href="{{ route('self-care.checkins.create') }}"
+                        :active="request()->routeIs('self-care.checkins.create')"
+                    >
+                        <x-slot name="icon">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            </svg>
+                        </x-slot>
+                        Novo Check-in
+                    </x-sidebar-link>
+                    <x-sidebar-link
+                        href="{{ route('self-care.checkins.history') }}"
+                        :active="request()->routeIs('self-care.checkins.history')"
+                    >
+                        <x-slot name="icon">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </x-slot>
+                        Histórico
+                    </x-sidebar-link>
+                </div>
+            </div>
 
             <hr class="border-t border-gray-200 my-3">
 
@@ -226,17 +251,42 @@
                 {{ __('Linha do Tempo') }}
             </x-sidebar-link>
 
-            <x-sidebar-link
-                href="{{ route('self-care.checkins.create') }}"
-                :active="request()->routeIs('self-care.*')"
-            >
-                <x-slot name="icon">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <!-- Submenu Autocuidado -->
+            <div x-data="{ open: {{ request()->routeIs('self-care.checkins.*') ? 'true' : 'false' }} }">
+                <button @click="open = !open" class="flex items-center w-full px-2 py-2 text-left rounded-lg transition hover:bg-indigo-50 focus:outline-none focus:bg-indigo-100 {{ request()->routeIs('self-care.checkins.*') ? 'bg-indigo-50 text-indigo-700' : 'text-gray-700' }}">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
-                </x-slot>
-                {{ __('Autocuidado') }}
-            </x-sidebar-link>
+                    <span class="flex-1">Autocuidado</span>
+                    <svg :class="{'rotate-90': open}" class="w-4 h-4 ml-auto transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+                <div x-show="open" x-transition class="ml-7 mt-1 space-y-1">
+                    <x-sidebar-link
+                        href="{{ route('self-care.checkins.create') }}"
+                        :active="request()->routeIs('self-care.checkins.create')"
+                    >
+                        <x-slot name="icon">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                            </svg>
+                        </x-slot>
+                        Novo Check-in
+                    </x-sidebar-link>
+                    <x-sidebar-link
+                        href="{{ route('self-care.checkins.history') }}"
+                        :active="request()->routeIs('self-care.checkins.history')"
+                    >
+                        <x-slot name="icon">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </x-slot>
+                        Histórico
+                    </x-sidebar-link>
+                </div>
+            </div>
 
             <hr class="border-t border-gray-200 my-3">
 
